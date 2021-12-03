@@ -1,0 +1,105 @@
+*{
+	color:white;
+	font-family: Arial, Helvetica, sans-serif;
+	background-color:rgb(126, 126, 153);
+	font-weight: bold;
+}
+
+h2{
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.form-gestion{
+	display: flex;
+	flex-direction: row;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.bouton {
+	display: inline-block;
+	width: 150px;
+	height: 40px;
+	border-style: inset;
+	border-color:gray;
+	color: blue;
+	background-color: skyblue;
+	text-align: center;
+	font-weight: bold;
+	margin-bottom: 0.5em;
+	border-radius: 0.5em;
+	margin-right: 1em;
+	margin-top: 1em;
+}
+
+.bouton:hover{
+	cursor: pointer;
+}
+
+table{
+	border-collapse: collapse;
+}
+
+th{
+	padding: 20px;
+	text-align: center;
+	background-color:blue;
+	color: white;
+	border-style: inset;
+	border-color: white;
+}
+
+td{
+	padding: 20px;
+	text-align: center;
+	font-weight: bold;
+	font-family: 'Trebuchet MS';
+	color: black;
+	background-color:rgb(187, 184, 184);
+	border-style: inset;
+	border-color: white;
+}
+
+a{
+	color: blue;
+	background-color:rgb(187, 184, 184);
+}
+
+.ctn-main{
+	display: flex;
+	flex-direction: column;
+}
+
+label{
+	display: inline-block;
+	width: 150px;
+	text-align: left;
+}
+
+input{
+	display: inline-block;
+	width: 195px;
+	color: blue;
+	background-color: skyblue;
+}
+
+select{
+	width: 200px;
+	border-width: 0.2em;
+	background-color: skyblue;
+	color: blue;
+}
+
+form{
+	display: flex;
+	flex-direction: column;
+}
+
+.field{
+	display: flex;
+	flex-direction: row;
+	margin-left: auto;
+	margin-right: auto;
+}
