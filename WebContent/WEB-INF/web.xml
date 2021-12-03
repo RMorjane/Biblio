@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.4">
+  <display-name>Biblio</display-name>
+  <servlet>
+    <servlet-name>ServletGestionAuteur</servlet-name>
+    <servlet-class>co.simplon.controller.ServletGestionAuteur</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletGestionAuteur</servlet-name>
+    <url-pattern>/ServletGestionAuteur</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletGestionGenre</servlet-name>
+    <servlet-class>co.simplon.controller.ServletGestionGenre</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletGestionGenre</servlet-name>
+    <url-pattern>/ServletGestionGenre</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletGestionEditeur</servlet-name>
+    <servlet-class>co.simplon.controller.ServletGestionEditeur</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletGestionEditeur</servlet-name>
+    <url-pattern>/ServletGestionEditeur</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ServletGestionLivre</servlet-name>
+    <servlet-class>co.simplon.controller.ServletGestionLivre</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletGestionLivre</servlet-name>
+    <url-pattern>/ServletGestionLivre</url-pattern>
+  </servlet-mapping>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+</web-app>
