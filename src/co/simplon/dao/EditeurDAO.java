@@ -11,22 +11,19 @@ import java.util.List;
 import co.simplon.model.Editeur;
 
 public class EditeurDAO implements DAO<Editeur> {
-
-	private DAOContext daoContext;
 	
-	public EditeurDAO(DAOContext daoContext) {
+	public EditeurDAO() {
 		// TODO Auto-generated constructor stub
-		this.daoContext = daoContext;
 	}
 
 	@Override
 	public void ajouter(Editeur editeur) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_insert = null;
 			ps_insert = db.prepareStatement("INSERT INTO editeur(nom) VALUES(?);");
-			// la colonne auteurId est un entier auto incrémenté dans la table auteur
+			// la colonne auteurId est un entier auto incrÃ©mentÃ© dans la table auteur
 			ps_insert.setString(1, editeur.getNom());
 			ps_insert.executeUpdate();
 		}
@@ -42,7 +39,7 @@ public class EditeurDAO implements DAO<Editeur> {
 	public void modifier(Editeur editeur) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_update = db.prepareStatement("UPDATE editeur SET nom=? WHERE editeurId=?;");
 			ps_update.setString(1, editeur.getNom());
 			ps_update.setInt(2, editeur.getEditeurId());
@@ -60,7 +57,7 @@ public class EditeurDAO implements DAO<Editeur> {
 	public void supprimer(Editeur editeur) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_delete = db.prepareStatement("DELETE FROM editeur WHERE editeurId=?;");
 			ps_delete.setInt(1, editeur.getEditeurId());
 			ps_delete.executeUpdate();
@@ -113,7 +110,7 @@ public class EditeurDAO implements DAO<Editeur> {
 		// TODO Auto-generated method stub
 		List<Editeur> Rediteurs = new ArrayList<Editeur>();
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_find = null;
 
 			int id = editeur.getEditeurId();
@@ -128,7 +125,7 @@ public class EditeurDAO implements DAO<Editeur> {
 				ps_find = db.prepareStatement(query.toString());
 				ps_find.setString(1,nom+"%");
 			}
-			else { // le champ Id est rempli avec une valeur entière  et les autres champs sont remplis ou vides
+			else { // le champ Id est rempli avec une valeur entiÃ¨re  et les autres champs sont remplis ou vides
 				query.append("WHERE editeurId=? and nom like ?");
 				ps_find = db.prepareStatement(query.toString());
 				ps_find.setInt(1,id);
@@ -137,7 +134,7 @@ public class EditeurDAO implements DAO<Editeur> {
 			
 			ResultSet rs = ps_find.executeQuery();
 			while(rs.next()) {
-				System.out.println("trouvé");
+				System.out.println("trouvÃ©");
 				id = rs.getInt("editeurId");
 				nom = rs.getString("nom");
 				Editeur rech = new Editeur();
@@ -160,7 +157,7 @@ public class EditeurDAO implements DAO<Editeur> {
 		// TODO Auto-generated method stub
 		List<Editeur> Lediteurs = new ArrayList<Editeur>();
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			Statement ps_select = db.createStatement();
 			ResultSet rs = ps_select.executeQuery("SELECT * FROM editeur;");
 			while(rs.next()) {

@@ -1,7 +1,6 @@
 package co.simplon.dao;
 
 import java.util.List;
-import co.simplon.model.*;
 
 public interface DAO<T> {
 

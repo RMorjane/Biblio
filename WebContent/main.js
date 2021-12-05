@@ -30,6 +30,7 @@ function $_GET(param) {
 
 function setUrl(){
     var bean = $_GET("bean")
+    alert(bean)
 
     if(bean !=null){
         ctn.setAttribute("src","ServletGestion"+bean)

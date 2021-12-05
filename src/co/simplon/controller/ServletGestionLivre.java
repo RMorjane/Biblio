@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebInitParam;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -27,7 +25,9 @@ public class ServletGestionLivre extends HttpServlet {
 	private Livre livre = null;
 	private Auteur auteur = null;
 	private Genre genre = null;
-	private DAO livreDao,auteurDao,genreDao;
+	private DAO<Livre> livreDao;
+	private DAO<Auteur> auteurDao;
+	private DAO<Genre> genreDao;
 	private String action;
 	private List<Livre> Llivres = null;
 	private List<Auteur> Lauteurs = null;
@@ -40,10 +40,9 @@ public class ServletGestionLivre extends HttpServlet {
 	 */
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
-    	DAOContext daoContext = new DAOContext();
-    	this.livreDao = daoContext.getLivreDAO();
-    	this.auteurDao = daoContext.getAuteurDAO();
-    	this.genreDao = daoContext.getGenreDAO();
+    	this.livreDao = DAOContext.getLivreDAO();
+    	this.auteurDao = DAOContext.getAuteurDAO();
+    	this.genreDao = DAOContext.getGenreDAO();
     	Lauteurs = auteurDao.lister();
     	Lgenres = genreDao.lister();
 	}
@@ -54,7 +53,7 @@ public class ServletGestionLivre extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		action = request.getParameter("action");
-		if(action==null) { // on affiche la liste des livres ‡ l'initialisation de la Servlet
+		if(action==null) { // on affiche la liste des livres √† l'initialisation de la Servlet
 			Llivres = livreDao.lister();		
 			request.setAttribute("Llivres", Llivres);
 			this.getServletContext().getRequestDispatcher("/GestionLivres.jsp").forward(request,response);			
@@ -65,7 +64,7 @@ public class ServletGestionLivre extends HttpServlet {
 			if(action.equals("modifier")) {
 				System.out.println("get : "+executed);
 				
-				if(executed) { // on affiche la liste des livres lorsque la modification est dÈj‡ ÈxecutÈe
+				if(executed) { // on affiche la liste des livres lorsque la modification est d√©j√† √©xecut√©e
 					Llivres = livreDao.lister();		
 					request.setAttribute("Llivres", Llivres);
 					this.getServletContext().getRequestDispatcher("/GestionLivres.jsp").forward(request,response);
@@ -76,12 +75,12 @@ public class ServletGestionLivre extends HttpServlet {
 					System.out.println(codeCatalogue);
 					if(!codeCatalogue.equals("")) {
 						
-						// on rÈcupËre le livre ‡ modifier par son code catalogue
+						// on r√©cup√®re le livre √† modifier par son code catalogue
 						livre = (Livre)livreDao.getById(codeCatalogue);
 						
 						System.out.println(livre);
 						
-						// si le livre est trouvÈ, on redirrige les informations du livre sur le formulaire FormLivre.jsp
+						// si le livre est trouv√©, on redirrige les informations du livre sur le formulaire FormLivre.jsp
 						if(livre!=null) {
 							int auteurId = livre.getAuteur().getAuteurId();
 							int genreId = livre.getGenre().getGenreId();
@@ -99,7 +98,7 @@ public class ServletGestionLivre extends HttpServlet {
 				codeCatalogue = request.getParameter("codeCatalogue");
 				if(!codeCatalogue.equals("")) {
 					
-					// on rÈcupËre le livre ‡ supprimer par son code catalogue
+					// on r√©cup√®re le livre √† supprimer par son code catalogue
 					livre = new Livre();
 					livre.setCodeCatalogue(codeCatalogue);
 					livreDao.supprimer(livre);
@@ -110,11 +109,11 @@ public class ServletGestionLivre extends HttpServlet {
 					this.getServletContext().getRequestDispatcher("/GestionLivres.jsp").forward(request,response);
 				}			
 			}
-			else if(action.equals("rechercher")) { // on affiche la liste des livres recherchÈs
+			else if(action.equals("rechercher")) { // on affiche la liste des livres recherch√©s
 				request.setAttribute("Llivres", Llivres);
 				this.getServletContext().getRequestDispatcher("/GestionLivres.jsp").forward(request,response);				
 			}
-			// on affiche la liste des genres lorsqu'on clique sur le bouton Acceuil ou aprËs l'ajout d'un livre
+			// on affiche la liste des genres lorsqu'on clique sur le bouton Acceuil ou apr√®s l'ajout d'un livre
 			else if(action.equals("acceuil") || action.equals("ajouter")) {
 				Llivres = livreDao.lister();		
 				request.setAttribute("Llivres", Llivres);

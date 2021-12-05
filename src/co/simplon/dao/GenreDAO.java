@@ -11,22 +11,19 @@ import java.util.List;
 import co.simplon.model.Genre;
 
 public class GenreDAO implements DAO<Genre> {
-
-	private DAOContext daoContext;
 	
-	public GenreDAO(DAOContext daoContext) {
+	public GenreDAO() {
 		// TODO Auto-generated constructor stub
-		this.daoContext = daoContext;
 	}
 
 	@Override
 	public void ajouter(Genre genre) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_insert = null;
 			ps_insert = db.prepareStatement("INSERT INTO genre(nom) VALUES(?);");
-			// la colonne auteurId est un entier auto incrémenté dans la table auteur
+			// la colonne auteurId est un entier auto incrÃ©mentÃ© dans la table auteur
 			ps_insert.setString(1, genre.getNom());
 			ps_insert.executeUpdate();
 		}
@@ -42,7 +39,7 @@ public class GenreDAO implements DAO<Genre> {
 	public void modifier(Genre genre) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_update = db.prepareStatement("UPDATE genre SET nom=? WHERE genreId=?;");
 			ps_update.setString(1, genre.getNom());
 			ps_update.setInt(2, genre.getGenreId());
@@ -60,7 +57,7 @@ public class GenreDAO implements DAO<Genre> {
 	public void supprimer(Genre genre) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_delete = db.prepareStatement("DELETE FROM genre WHERE genreId=?;");
 			ps_delete.setInt(1, genre.getGenreId());
 			ps_delete.executeUpdate();
@@ -113,7 +110,7 @@ public class GenreDAO implements DAO<Genre> {
 		// TODO Auto-generated method stub
 		List<Genre> Rgenres = new ArrayList<Genre>();
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_find = null;
 
 			int id = genre.getGenreId();
@@ -126,7 +123,7 @@ public class GenreDAO implements DAO<Genre> {
 				ps_find = db.prepareStatement(query.toString());
 				ps_find.setString(1,nom+"%");
 			}
-			else { // le champ Id est rempli avec une valeur entière  et les autres champs sont remplis ou vides
+			else { // le champ Id est rempli avec une valeur entiÃ¨re  et les autres champs sont remplis ou vides
 				query.append("WHERE genreId=? and nom like ?");
 				ps_find = db.prepareStatement(query.toString());
 				ps_find.setInt(1,id);
@@ -157,7 +154,7 @@ public class GenreDAO implements DAO<Genre> {
 		// TODO Auto-generated method stub
 		List<Genre> Lgenres = new ArrayList<Genre>();
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			Statement ps_select = db.createStatement();
 			ResultSet rs = ps_select.executeQuery("SELECT * FROM genre;");
 			while(rs.next()) {

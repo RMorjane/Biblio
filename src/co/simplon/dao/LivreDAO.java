@@ -13,19 +13,16 @@ import co.simplon.model.Genre;
 import co.simplon.model.Livre;
 
 public class LivreDAO implements DAO<Livre> {
-	
-	private DAOContext daoContext;
 
-	public LivreDAO(DAOContext daoContext) {
+	public LivreDAO() {
 		// TODO Auto-generated constructor stub
-		this.daoContext = daoContext;
 	}
 
 	@Override
 	public void ajouter(Livre livre) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_insert = null;
 			ps_insert = db.prepareStatement("INSERT INTO livre(codeCatalogue,titre,auteurId,genreId) VALUES(?,?,?,?);");
 			ps_insert.setString(1, livre.getCodeCatalogue());
@@ -46,7 +43,7 @@ public class LivreDAO implements DAO<Livre> {
 	public void modifier(Livre livre) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_update = db.prepareStatement("UPDATE livre SET titre=?,auteurId=?,genreId=? WHERE codeCatalogue=?;");
 			ps_update.setString(1, livre.getTitre());
 			ps_update.setInt(2, livre.getAuteur().getAuteurId());
@@ -66,7 +63,7 @@ public class LivreDAO implements DAO<Livre> {
 	public void supprimer(Livre livre) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_delete = db.prepareStatement("DELETE FROM livre WHERE codeCatalogue=?;");
 			ps_delete.setString(1, livre.getCodeCatalogue());
 			ps_delete.executeUpdate();
@@ -84,7 +81,7 @@ public class LivreDAO implements DAO<Livre> {
 		// TODO Auto-generated method stub
 		List<Livre> Rlivres = new ArrayList<Livre>();
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_find = null;
 
 			String codeCatalogue = livre.getCodeCatalogue();
@@ -141,10 +138,10 @@ public class LivreDAO implements DAO<Livre> {
 				titre = rs.getString("titre");
 				
 				auteurId = rs.getInt("auteurId");
-				Auteur auteur = (Auteur)daoContext.getAuteurDAO().getById(auteurId);
+				Auteur auteur = (Auteur)DAOContext.getAuteurDAO().getById(auteurId);
 				
 				genreId = rs.getInt("genreId");
-				Genre genre = (Genre)daoContext.getGenreDAO().getById(genreId);
+				Genre genre = (Genre)DAOContext.getGenreDAO().getById(genreId);
 				
 				Livre rech = new Livre();
 				rech.setCodeCatalogue(codeCatalogue);
@@ -168,7 +165,7 @@ public class LivreDAO implements DAO<Livre> {
 		// TODO Auto-generated method stub
 		List<Livre> Llivres = new ArrayList<Livre>();
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			Statement ps_select = db.createStatement();
 			ResultSet rs = ps_select.executeQuery("SELECT * FROM livre;");
 			while(rs.next()) {
@@ -176,8 +173,8 @@ public class LivreDAO implements DAO<Livre> {
 				String titre = rs.getString("titre");
 				int auteurId = rs.getInt("auteurId");
 				int genreId = rs.getInt("genreId");
-				Auteur auteur = (Auteur)daoContext.getAuteurDAO().getById(auteurId);
-				Genre genre = (Genre)daoContext.getGenreDAO().getById(genreId);
+				Auteur auteur = (Auteur)DAOContext.getAuteurDAO().getById(auteurId);
+				Genre genre = (Genre)DAOContext.getGenreDAO().getById(genreId);
 				Livre livre = new Livre();
 				livre.setCodeCatalogue(codeCatalogue);
 				livre.setTitre(titre);

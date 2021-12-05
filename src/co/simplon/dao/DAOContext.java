@@ -1,5 +1,6 @@
 package co.simplon.dao;
 
+import co.simplon.model.*;
 import java.sql.*;
 
 public class DAOContext {
@@ -11,19 +12,19 @@ public class DAOContext {
 		return db;
 	}
 	
-	public DAO getAuteurDAO() {
-		return new AuteurDAO(this);
+	public static DAO<Auteur> getAuteurDAO() {
+		return new AuteurDAO();
 	}	
 	
-	public DAO getGenreDAO() {
-		return new GenreDAO(this);
+	public static DAO<Genre> getGenreDAO() {
+		return new GenreDAO();
 	}	
 	
-	public DAO getLivreDAO() {
-		return new LivreDAO(this);
+	public static DAO<Livre> getLivreDAO() {
+		return new LivreDAO();
 	}
 	
-	public DAO getEditeurDAO() {
-		return new EditeurDAO(this);
+	public static DAO<Editeur> getEditeurDAO() {
+		return new EditeurDAO();
 	}
 }

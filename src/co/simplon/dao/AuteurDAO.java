@@ -11,22 +11,19 @@ import java.util.ArrayList;
 import co.simplon.model.Auteur;
 
 public class AuteurDAO implements DAO<Auteur> {
-
-	private DAOContext daoContext;
 	
-	public AuteurDAO(DAOContext daoContext) {
+	public AuteurDAO() {
 		// TODO Auto-generated constructor stub
-		this.daoContext = daoContext;
 	}
 
 	@Override
 	public void ajouter(Auteur auteur) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_insert = null;
 			ps_insert = db.prepareStatement("INSERT INTO auteur(nom,prenom) VALUES(?,?);");
-			// la colonne auteurId est un entier auto incrémenté dans la table auteur
+			// la colonne auteurId est un entier auto incrÃ©mentÃ© dans la table auteur
 			ps_insert.setString(1, auteur.getNom());
 			ps_insert.setString(2, auteur.getPrenom());
 			ps_insert.executeUpdate();
@@ -43,7 +40,7 @@ public class AuteurDAO implements DAO<Auteur> {
 	public void modifier(Auteur auteur) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_update = db.prepareStatement("UPDATE auteur SET nom=?,prenom=? WHERE auteurId=?;");
 			ps_update.setString(1, auteur.getNom());
 			ps_update.setString(2, auteur.getPrenom());
@@ -62,7 +59,7 @@ public class AuteurDAO implements DAO<Auteur> {
 	public void supprimer(Auteur auteur) {
 		// TODO Auto-generated method stub
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_delete = db.prepareStatement("DELETE FROM auteur WHERE auteurId=?;");
 			ps_delete.setInt(1, auteur.getAuteurId());
 			ps_delete.executeUpdate();
@@ -80,7 +77,7 @@ public class AuteurDAO implements DAO<Auteur> {
 		// TODO Auto-generated method stub
 		List<Auteur> Rauteurs = new ArrayList<Auteur>();
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_find = null;
 
 			int id = auteur.getAuteurId();
@@ -95,7 +92,7 @@ public class AuteurDAO implements DAO<Auteur> {
 				ps_find.setString(1,nom+"%");
 				ps_find.setString(2,prenom+"%");
 			}
-			else { // le champ Id est rempli avec une valeur entière  et les autres champs sont remplis ou vides
+			else { // le champ Id est rempli avec une valeur entiÃ¨re  et les autres champs sont remplis ou vides
 				query.append("WHERE auteurId=? and nom like ? and prenom like ?");
 				ps_find = db.prepareStatement(query.toString());
 				ps_find.setInt(1,id);
@@ -129,7 +126,7 @@ public class AuteurDAO implements DAO<Auteur> {
 		// TODO Auto-generated method stub
 		List<Auteur> Lauteurs = new ArrayList<Auteur>();
 		try {
-			Connection db = daoContext.getConnection();
+			Connection db = DAOContext.getConnection();
 			Statement ps_select = db.createStatement();
 			ResultSet rs = ps_select.executeQuery("SELECT * FROM auteur;");
 			while(rs.next()) {

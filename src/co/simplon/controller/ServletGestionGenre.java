@@ -20,7 +20,7 @@ public class ServletGestionGenre extends HttpServlet {
 	
 	private int id;
 	private String nom;
-	private DAO genreDao;
+	private DAO<Genre> genreDao;
 	private String action;
 	private Genre genre = null;
 	private List<Genre> Lgenres = null;
@@ -32,8 +32,7 @@ public class ServletGestionGenre extends HttpServlet {
 	 */
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
-    	DAOContext daoContext = new DAOContext();
-    	this.genreDao = daoContext.getGenreDAO();
+    	this.genreDao = DAOContext.getGenreDAO();
 	}
 
 	/**
@@ -42,7 +41,7 @@ public class ServletGestionGenre extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		action = request.getParameter("action");
-		if(action==null) { // on affiche la liste des genres ‡ l'initialisation de la Servlet
+		if(action==null) { // on affiche la liste des genres √† l'initialisation de la Servlet
 			Lgenres = genreDao.lister();		
 			request.setAttribute("Lgenres", Lgenres);
 			this.getServletContext().getRequestDispatcher("/GestionGenres.jsp").forward(request,response);			
@@ -53,7 +52,7 @@ public class ServletGestionGenre extends HttpServlet {
 			if(action.equals("modifier")) {
 				System.out.println("get : "+executed);
 				
-				if(executed) { // on affiche la liste des genres lorsque la modification est dÈj‡ ÈxecutÈe
+				if(executed) { // on affiche la liste des genres lorsque la modification est d√©j√† √©xecut√©e
 					Lgenres = genreDao.lister();		
 					request.setAttribute("Lgenres", Lgenres);
 					this.getServletContext().getRequestDispatcher("/GestionGenres.jsp").forward(request,response);
@@ -63,10 +62,10 @@ public class ServletGestionGenre extends HttpServlet {
 					String strId = request.getParameter("id");
 					if(!strId.equals("")) {
 						
-						// on rÈcupËre l'genre ‡ modifier par son id
+						// on r√©cup√®re l'genre √† modifier par son id
 						genre = (Genre)genreDao.getById(strId);
 						
-						// si l'genre est trouvÈ, on redirrige les informations de l'genre sur le formulaire FormGenre.jsp
+						// si l'genre est trouv√©, on redirrige les informations de l'genre sur le formulaire FormGenre.jsp
 						if(genre!=null) {
 							request.setAttribute("genre", genre);
 							this.getServletContext().getRequestDispatcher("/FormGenre.jsp?action="+action).forward(request,response);							
@@ -78,10 +77,10 @@ public class ServletGestionGenre extends HttpServlet {
 				String strId = request.getParameter("id");
 				if(!strId.equals("")) {
 					
-					// on rÈcupËre l'genre ‡ supprimer par son id
+					// on r√©cup√®re l'genre √† supprimer par son id
 					genre = (Genre)genreDao.getById(strId);
 					
-					// si l'genre est trouvÈ, on le supprime de la table genre
+					// si l'genre est trouv√©, on le supprime de la table genre
 					if(genre!=null) {
 						genreDao.supprimer(genre);
 					}
@@ -92,11 +91,11 @@ public class ServletGestionGenre extends HttpServlet {
 					this.getServletContext().getRequestDispatcher("/GestionGenres.jsp").forward(request,response);
 				}			
 			}
-			else if(action.equals("rechercher")) { // on affiche la liste des genres recherchÈs
+			else if(action.equals("rechercher")) { // on affiche la liste des genres recherch√©s
 				request.setAttribute("Lgenres", Lgenres);
 				this.getServletContext().getRequestDispatcher("/GestionGenres.jsp").forward(request,response);				
 			}
-			// on affiche la liste des genres lorsqu'on clique sur le bouton Acceuil ou aprËs l'ajout d'un genre
+			// on affiche la liste des genres lorsqu'on clique sur le bouton Acceuil ou apr√®s l'ajout d'un genre
 			else if(action.equals("acceuil")||action.equals("ajouter")) {
 				Lgenres = genreDao.lister();		
 				request.setAttribute("Lgenres", Lgenres);
