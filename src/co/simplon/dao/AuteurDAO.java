@@ -23,7 +23,7 @@ public class AuteurDAO implements DAO<Auteur> {
 			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_insert = null;
 			ps_insert = db.prepareStatement("INSERT INTO auteur(nom,prenom) VALUES(?,?);");
-			// la colonne auteurId est un entier auto incrémenté dans la table auteur
+			// la colonne auteurId est un entier auto incrÃ©mentÃ© dans la table auteur
 			ps_insert.setString(1, auteur.getNom());
 			ps_insert.setString(2, auteur.getPrenom());
 			ps_insert.executeUpdate();
@@ -92,7 +92,7 @@ public class AuteurDAO implements DAO<Auteur> {
 				ps_find.setString(1,nom+"%");
 				ps_find.setString(2,prenom+"%");
 			}
-			else { // le champ Id est rempli avec une valeur entière  et les autres champs sont remplis ou vides
+			else { // le champ Id est rempli avec une valeur entiÃ¨re  et les autres champs sont remplis ou vides
 				query.append("WHERE auteurId=? and nom like ? and prenom like ?");
 				ps_find = db.prepareStatement(query.toString());
 				ps_find.setInt(1,id);

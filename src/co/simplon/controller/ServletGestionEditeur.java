@@ -42,7 +42,7 @@ public class ServletGestionEditeur extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		action = request.getParameter("action");
-		if(action==null) { // on affiche la liste des editeurs ‡ l'initialisation de la Servlet
+		if(action==null) { // on affiche la liste des editeurs √† l'initialisation de la Servlet
 			Lediteurs = editeurDao.lister();		
 			request.setAttribute("Lediteurs", Lediteurs);
 			this.getServletContext().getRequestDispatcher("/GestionEditeurs.jsp").forward(request,response);			
@@ -53,7 +53,7 @@ public class ServletGestionEditeur extends HttpServlet {
 			if(action.equals("modifier")) {
 				System.out.println("get : "+executed);
 				
-				if(executed) { // on affiche la liste des editeurs lorsque la modification est dÈj‡ ÈxecutÈe
+				if(executed) { // on affiche la liste des editeurs lorsque la modification est d√©j√† √©xecut√©e
 					Lediteurs = editeurDao.lister();		
 					request.setAttribute("Lediteurs", Lediteurs);
 					this.getServletContext().getRequestDispatcher("/GestionEditeurs.jsp").forward(request,response);
@@ -65,10 +65,10 @@ public class ServletGestionEditeur extends HttpServlet {
 						
 						//System.out.println("Id de l'Editeur : "+strId);
 						
-						// on rÈcupËre l'editeur ‡ modifier par son id
+						// on r√©cup√®re l'editeur √† modifier par son id
 						editeur = (Editeur)editeurDao.getById(strId);
 						
-						// si l'editeur est trouvÈ, on redirrige les informations de l'editeur sur le formulaire FormEditeur.jsp
+						// si l'editeur est trouv√©, on redirrige les informations de l'editeur sur le formulaire FormEditeur.jsp
 						if(editeur!=null) {
 							request.setAttribute("editeur", editeur);
 							this.getServletContext().getRequestDispatcher("/FormEditeur.jsp?action="+action).forward(request,response);							
@@ -80,10 +80,10 @@ public class ServletGestionEditeur extends HttpServlet {
 				String strId = request.getParameter("id");
 				if(!strId.equals("")) {
 					
-					// on rÈcupËre l'editeur ‡ supprimer par son id
+					// on r√©cup√®re l'editeur √† supprimer par son id
 					editeur = (Editeur)editeurDao.getById(strId);
 					
-					// si l'editeur est trouvÈ, on le supprime de la table editeur
+					// si l'editeur est trouv√©, on le supprime de la table editeur
 					if(editeur!=null) {
 						editeurDao.supprimer(editeur);
 					}
@@ -94,11 +94,11 @@ public class ServletGestionEditeur extends HttpServlet {
 					this.getServletContext().getRequestDispatcher("/GestionEditeurs.jsp").forward(request,response);
 				}			
 			}
-			else if(action.equals("rechercher")) { // on affiche la liste des editeurs recherchÈs
+			else if(action.equals("rechercher")) { // on affiche la liste des editeurs recherch√©s
 				request.setAttribute("Lediteurs", Lediteurs);
 				this.getServletContext().getRequestDispatcher("/GestionEditeurs.jsp").forward(request,response);				
 			}
-			// on affiche la liste des editeurs lorsqu'on clique sur le bouton Acceuil ou aprËs l'ajout d'un editeur
+			// on affiche la liste des editeurs lorsqu'on clique sur le bouton Acceuil ou apr√®s l'ajout d'un editeur
 			else if(action.equals("acceuil")||action.equals("ajouter")) {
 				Lediteurs = editeurDao.lister();		
 				request.setAttribute("Lediteurs", Lediteurs);

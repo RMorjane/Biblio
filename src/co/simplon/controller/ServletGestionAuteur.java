@@ -48,7 +48,7 @@ public class ServletGestionAuteur extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		action = request.getParameter("action");
-		if(action==null) { // on affiche la liste des auteurs ‡ l'initialisation de la Servlet
+		if(action==null) { // on affiche la liste des auteurs √† l'initialisation de la Servlet
 			Lauteurs = auteurDao.lister();		
 			request.setAttribute("Lauteurs", Lauteurs);
 			this.getServletContext().getRequestDispatcher("/GestionAuteurs.jsp").forward(request,response);			
@@ -59,7 +59,7 @@ public class ServletGestionAuteur extends HttpServlet {
 			if(action.equals("modifier")) {
 				System.out.println("get : "+executed);
 				
-				if(executed) { // on affiche la liste des auteurs lorsque la modification est dÈj‡ ÈxecutÈe
+				if(executed) { // on affiche la liste des auteurs lorsque la modification est d√©j√† √©xecut√©e
 					Lauteurs = auteurDao.lister();		
 					request.setAttribute("Lauteurs", Lauteurs);
 					this.getServletContext().getRequestDispatcher("/GestionAuteurs.jsp").forward(request,response);
@@ -69,10 +69,10 @@ public class ServletGestionAuteur extends HttpServlet {
 					String strId = request.getParameter("id");
 					if(!strId.equals("")) {
 						
-						// on rÈcupËre l'auteur ‡ modifier par son id
+						// on r√©cup√®re l'auteur √† modifier par son id
 						auteur = (Auteur)auteurDao.getById(strId);
 						
-						// si l'auteur est trouvÈ, on redirrige les informations de l'auteur sur le formulaire FormAuteur.jsp
+						// si l'auteur est trouv√©, on redirrige les informations de l'auteur sur le formulaire FormAuteur.jsp
 						if(auteur!=null) {
 							request.setAttribute("auteur", auteur);
 							this.getServletContext().getRequestDispatcher("/FormAuteur.jsp?action="+action).forward(request,response);							
@@ -84,10 +84,10 @@ public class ServletGestionAuteur extends HttpServlet {
 				String strId = request.getParameter("id");
 				if(!strId.equals("")) {
 					
-					// on rÈcupËre l'auteur ‡ supprimer par son id
+					// on r√©cup√®re l'auteur √† supprimer par son id
 					auteur = (Auteur)auteurDao.getById(strId);
 					
-					// si l'auteur est trouvÈ, on le supprime de la table auteur
+					// si l'auteur est trouv√©, on le supprime de la table auteur
 					if(auteur!=null) {
 						auteurDao.supprimer(auteur);
 					}
@@ -98,11 +98,11 @@ public class ServletGestionAuteur extends HttpServlet {
 					this.getServletContext().getRequestDispatcher("/GestionAuteurs.jsp").forward(request,response);
 				}			
 			}
-			else if(action.equals("rechercher")) { // on affiche la liste des auteurs recherchÈs
+			else if(action.equals("rechercher")) { // on affiche la liste des auteurs recherch√©s
 				request.setAttribute("Lauteurs", Lauteurs);
 				this.getServletContext().getRequestDispatcher("/GestionAuteurs.jsp").forward(request,response);				
 			}
-			// on affiche la liste des auteurs lorsqu'on clique sur le bouton Acceuil ou aprËs l'ajout d'un auteur
+			// on affiche la liste des auteurs lorsqu'on clique sur le bouton Acceuil ou apr√®s l'ajout d'un auteur
 			else if(action.equals("acceuil")||action.equals("ajouter")) {
 				Lauteurs = auteurDao.lister();		
 				request.setAttribute("Lauteurs", Lauteurs);

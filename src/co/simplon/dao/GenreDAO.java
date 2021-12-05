@@ -23,7 +23,7 @@ public class GenreDAO implements DAO<Genre> {
 			Connection db = DAOContext.getConnection();
 			PreparedStatement ps_insert = null;
 			ps_insert = db.prepareStatement("INSERT INTO genre(nom) VALUES(?);");
-			// la colonne auteurId est un entier auto incrémenté dans la table auteur
+			// la colonne auteurId est un entier auto incrÃ©mentÃ© dans la table auteur
 			ps_insert.setString(1, genre.getNom());
 			ps_insert.executeUpdate();
 		}
@@ -123,7 +123,7 @@ public class GenreDAO implements DAO<Genre> {
 				ps_find = db.prepareStatement(query.toString());
 				ps_find.setString(1,nom+"%");
 			}
-			else { // le champ Id est rempli avec une valeur entière  et les autres champs sont remplis ou vides
+			else { // le champ Id est rempli avec une valeur entiÃ¨re  et les autres champs sont remplis ou vides
 				query.append("WHERE genreId=? and nom like ?");
 				ps_find = db.prepareStatement(query.toString());
 				ps_find.setInt(1,id);
